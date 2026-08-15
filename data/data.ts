@@ -34,7 +34,7 @@ export const projects: project[] = [
         name: "FeelFrame Studios",
         description: "A modern, visual-first web platform crafted for Feel Frame Studio, featuring fluid media delivery, high-resolution visual showcases, and an immersive user experience tailored for creative storytelling.",
         longDescription: "To match Feel Frame Studio’s refined visual identity, I designed and built a fast, media-focused web platform engineered to showcase high-resolution photography and video without compromising performance. The interface prioritizes clean, minimalist layout structures, allowing the visual assets to take center stage through dynamic gallery displays and smooth, responsive transitions. Built with modern web architecture, the platform handles heavy visual payloads efficiently—incorporating optimized media loading, responsive image handling, and intuitive navigation—creating an elevated digital space that effortlessly converts portfolio traffic into client inquiries.",
-        liveLink: "https://porfolio-october.vercel.app/",
+        liveLink: "https://www.feelframestudio.com/",
         githubLink: "#",
         image: ["/feelframe-1.png", "/feelframe-2.png"],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
@@ -43,7 +43,7 @@ export const projects: project[] = [
         name: "Logi West",
         description: "A high-performance logistics web platform engineered for Logiwest, featuring real-time consignment tracking, operational service breakdowns, and a streamlined quote-request engine built for freight clients.",
         longDescription: "To modernize Logiwest’s digital presence, I built a fast, enterprise-grade web application tailored to the fast-paced demands of regional supply chain management. The platform features an intuitive interface that simplifies complex freight operations into accessible, user-friendly touchpoints—including an interactive service matrix, regional coverage breakdowns, and direct booking request workflows. Engineered with performance and reliability at its core, the site incorporates optimized data fetching, responsive design for field personnel on mobile devices, and seamless user flows that reduce friction for commercial logistics clients seeking immediate freight estimates and transport updates.",
-        liveLink: "https://porfolio-october.vercel.app/",
+        liveLink: "https://logi-west-beta.vercel.app/",
         githubLink: "#",
         image: ["/logi-west-1.png", "/logi-west-2.png", "/logi-west-3.png"],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
@@ -57,4 +57,14 @@ export const projects: project[] = [
         image: ["/presale-1.png", "/presale-2.png", "/presale-3.png"],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
+    {
+        name: "NFCS Obafemi Awolowo",
+        description: "A community-driven birthday recognition platform for NFCS Obafemi Awolowo University, built to celebrate student members, streamline birthday tracking, and foster connection across the chapter.",
+        longDescription: "Designed for the Nigeria Federation of Catholic Students (NFCS) at Obafemi Awolowo University, Making Years Count is a dedicated digital platform created to elevate how the student community celebrates its members. The platform automates birthday tracking, provides central event visibility, and enables fellow students and executives to send personalized warm wishes and tributes directly to celebrants. Built with an emphasis on seamless user experience and accessibility, the application strengthens fellowship within the organization by ensuring every member feels valued and remembered on their special day.",
+        liveLink: "https://nfcs-oau.vercel.app/",
+        githubLink: "#",
+        image: ["/presale-1.png", "/presale-2.png", "/presale-3.png"],
+        technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
+    },
 ]
+
