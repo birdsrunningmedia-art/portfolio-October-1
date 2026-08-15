@@ -10,6 +10,7 @@ import Project from '@/components/Project'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
+
 const Page = () => {
   const contactRef = useRef<HTMLDivElement | null>(null);
 

@@ -1,176 +1,222 @@
-'use client'
-import React from 'react'
-import { useState } from 'react'
-import { projects } from '@/data/data'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { easeIn } from 'framer-motion'
+"use client";
 
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { projects } from "@/data/data";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const ProjectDetailPage = ({ name }: { name: string }) => {
-    const project = projects.find((project) => project.name === name)
+const ProjectDetailPage = ({ id }: { id: string }) => {
+  const router = useRouter();
 
-    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  // Find index directly from the URL prop
+  const projectIndex = projects.findIndex((p) => p.id === id);
+  const [activeIdx, setActiveIdx] = useState(projectIndex !== -1 ? projectIndex : 0);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-    const closeModal = () => setSelectedImage(null);
-
-    const sectionVariants = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                delayChildren: 0.4,   // wait before starting children
-                staggerChildren: 0.3, // animate children one after another
-            },
-        },
+  // Sync state whenever URL prop 'id' changes
+  useEffect(() => {
+    const newIndex = projects.findIndex((p) => p.id === id);
+    if (newIndex !== -1) {
+      setActiveIdx(newIndex);
     }
-    const childrenVariants = {
-        hidden: { y: 30, opacity: 0 },
-        show: {
-            y: 0,
-            opacity: 1,
-            transition: {
-                duration: 0.3,
-                ease: easeIn
-            },
-        }
-    }
+  }, [id]);
 
+  const project = projects[activeIdx];
+  const closeModal = () => setSelectedImage(null);
+
+  // Fallback for invalid project IDs
+  if (!project || projectIndex === -1) {
     return (
-        <>
-            <Navbar />
-            <main className='py-28 flex flex-col gap-6 '>
-                {project &&
-                    <motion.div
-                        variants={sectionVariants}
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ margin: "-200px 0px -200px 0px", once: true }}
-                        className='p-4 flex flex-col gap-6 md:px-14 lg:px-20'>
-                        <motion.h1
-                            variants={childrenVariants}
-                            className='underline font-bold text-2xl md:text-4xl'>
-                            {`${(project?.name).charAt(0).toUpperCase() + (project?.name).slice(1)}`}
-                        </motion.h1>
-                        <motion.p
-                            variants={childrenVariants}
-                        >
-                            {project?.description}
-                        </motion.p>
+      <>
+        <Navbar />
+        <main className="min-h-[70vh] py-28 flex flex-col items-center justify-center gap-4 text-center px-4">
+          <h1 className="text-3xl font-bold">Project Not Found</h1>
+          <p className="text-gray-600">The project you are looking for does not exist.</p>
+          <Link
+            href="/"
+            className="mt-4 bg-black text-white px-6 py-2 rounded-2xl hover:bg-black/80 transition-all"
+          >
+            Back to Home
+          </Link>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
-                        <div className='flex flex-col gap-6'>
-                            <motion.h2
-                                variants={childrenVariants}
-                                className='text-xl md:text-2xl font-bold underline'>
-                                Description
-                            </motion.h2>
-                            <motion.p
-                                variants={childrenVariants}>
-                                {
-                                    project?.longDescription
-                                }
-                            </motion.p>
-                            <hr />
-                            <motion.h2
-                                variants={childrenVariants}
-                                className='text-xl md:text-2xl font-bold underline'>
-                                Technologies
-                            </motion.h2>
-                            <motion.div
-                                variants={childrenVariants} className='flex flex-wrap gap-2'>
-                                {
-                                    project?.technologies.map((technology, index) => (
-                                        <div
-                                            key={index}
-                                            className='bg-brand-dark px-4 py-2 inline-block text-brand-light rounded-2xl'
-                                        >
-                                            {technology}
-                                        </div>
-                                    ))
-                                }
-                            </motion.div>
-                            <hr />
-                        </div>
-                    </motion.div>}
+  // Circular indices for Next / Previous buttons
+  const prevIdx = (activeIdx - 1 + projects.length) % projects.length;
+  const nextIdx = (activeIdx + 1) % projects.length;
+  const prevProject = projects[prevIdx];
+  const nextProject = projects[nextIdx];
 
-                <button className="group m-auto w-fit flex items-center gap-2 bg-black text-white px-4 py-2 rounded-2xl">
-                    Visit Project
-                    <span className='group-hover:pl-4 transition-all duration-300'>{">"}</span>
-                </button>
+  const handleNext = () => {
+    router.push(`/projects/${nextProject.id}`);
+  };
 
-                <div className='flex flex-col sm:flex-row gap-6 items-center justify-center'>
-                    <button className="group w-fit flex items-center gap-2 bg-black text-white px-4 py-2 rounded-2xl">
-                        <span className='group-hover:pr-4 transition-all duration-300'>{"<"}</span>
-                        Previous
-                    </button>
-                    <button className="group w-fit flex items-center gap-2 bg-black text-white px-4 py-2 rounded-2xl">
-                        Next
-                        <span className='group-hover:pl-4 transition-all duration-300'>{">"}</span>
-                    </button>
+  const handlePrev = () => {
+    router.push(`/projects/${prevProject.id}`);
+  };
 
-                </div>
+  return (
+    <>
+      <Navbar />
+      <main className="py-28 flex flex-col gap-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={project.id}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25 }}
+            className="p-4 flex flex-col gap-6 md:px-14 lg:px-20"
+          >
+            <h1 className="underline font-bold text-2xl md:text-4xl">
+              {project.name.charAt(0).toUpperCase() + project.name.slice(1)}
+            </h1>
 
-                <div className='p-2 flex flex-col gap-8 lg:gap-10 mt-20'>
-                    {project && <h2
-                    className='text-xl md:text-2xl font-bold underline'
-                    >Screenshots from {`${(project?.name).charAt(0).toUpperCase() + (project?.name).slice(1)}`}</h2>}
-                    {
-                        project?.image && (
-                            project.image.map((image, index) => (
-                                <div
-                                    key={index}
-                                    className='group cursor-pointer p-8 border-y-brand-dark/30 border-[1px] rounded-2xl w-full flex flex-col gap-2'
-                                    onClick={() => setSelectedImage(project.image[index])}
-                                >
-                                    <div
-                                        className='relative w-full h-64 lg:h-96 overflow-hidden rounded-2xl'>
-                                        <Image
-                                            src={image}
-                                            alt={project.name}
-                                            fill
-                                            className='rounded-2xl object-cover transition-transform duration-500 ease-out hover:scale-110'
-                                        />
-                                    </div>
-                                </div>
-                            ))
-                        )
-                    }
-                </div>
-            </main>
-            {/* Modal */}
-            {selectedImage && (
+            <p>{project.description}</p>
+
+            <div className="flex flex-col gap-6">
+              <h2 className="text-xl md:text-2xl font-bold underline">
+                Description
+              </h2>
+
+              <p>{project.longDescription}</p>
+
+              <hr />
+
+              <h2 className="text-xl md:text-2xl font-bold underline">
+                Technologies
+              </h2>
+
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((technology, index) => (
+                  <div
+                    key={index}
+                    className="bg-brand-dark px-4 py-2 inline-block text-brand-light rounded-2xl"
+                  >
+                    {technology}
+                  </div>
+                ))}
+              </div>
+
+              <hr />
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Live Project Link */}
+        {project.liveLink && project.liveLink !== "#" && (
+          <a
+            href={project.liveLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group m-auto w-fit flex items-center gap-2 bg-black text-white px-6 py-3 rounded-2xl hover:bg-black/90 transition-all duration-300"
+          >
+            Visit Project
+            <span className="group-hover:translate-x-1 transition-transform duration-300">
+              &gt;
+            </span>
+          </a>
+        )}
+
+        {/* Next / Previous Buttons */}
+        <div className="flex flex-col sm:flex-row gap-6 items-center justify-center mt-6">
+          <button
+            onClick={handlePrev}
+            className="group w-fit flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-2xl hover:bg-black/90 transition-all duration-300"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform duration-300">
+              &lt;
+            </span>
+            Previous: {prevProject.name}
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="group w-fit flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-2xl hover:bg-black/90 transition-all duration-300"
+          >
+            Next: {nextProject.name}
+            <span className="group-hover:translate-x-1 transition-transform duration-300">
+              &gt;
+            </span>
+          </button>
+        </div>
+
+        {/* Screenshots Section */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={project.id + "-images"}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="p-4 md:px-14 lg:px-20 flex flex-col gap-8 lg:gap-10 mt-12"
+          >
+            <h2 className="text-xl md:text-2xl font-bold underline">
+              Screenshots from {project.name.charAt(0).toUpperCase() + project.name.slice(1)}
+            </h2>
+
+            <div className="flex flex-col gap-6">
+              {project.image.map((image, index) => (
                 <div
-                    onClick={closeModal}
-                    className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center cursor-pointer"
+                  key={index}
+                  className="group cursor-pointer p-4 md:p-8 border-y-brand-dark/30 border-[1px] rounded-2xl w-full flex flex-col gap-2 transition-all duration-300 hover:border-black/50"
+                  onClick={() => setSelectedImage(image)}
                 >
-                    {/* prevent closing when clicking inside modal content */}
-                    <div
-                        onClick={(e) => e.stopPropagation()}
-                        className="relative max-w-4xl w-full px-4"
-                    >
-                        <button
-                            onClick={closeModal}
-                            className="absolute top-3 right-3 z-50 bg-white/30 hover:bg-white/60 text-white text-xl rounded-full w-8 h-8 flex items-center justify-center"
-                        >
-                            ×
-                        </button>
-
-                        <div className="relative w-full aspect-[4/5] max-h-[90vh] m-auto rounded-lg overflow-hidden">
-                            <Image
-                                src={selectedImage}
-                                alt="Selected design"
-                                fill
-                                className="object-contain"
-                            />
-                        </div>
-                    </div>
+                  <div className="relative w-full h-64 lg:h-[28rem] overflow-hidden rounded-2xl">
+                    <Image
+                      src={image}
+                      alt={`${project.name} screenshot ${index + 1}`}
+                      fill
+                      className="rounded-2xl object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  </div>
                 </div>
-            )}
-            <Footer />
-        </>
-    )
-}
+              ))}
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </main>
 
-export default ProjectDetailPage
+      {/* Image Modal */}
+      {selectedImage && (
+        <div
+          onClick={closeModal}
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-pointer backdrop-blur-sm"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-5xl w-full"
+          >
+            <button
+              onClick={closeModal}
+              aria-label="Close image modal"
+              className="absolute -top-10 right-0 z-50 bg-white/30 hover:bg-white/60 text-white text-2xl rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+            >
+              &times;
+            </button>
+
+            <div className="relative w-full aspect-video max-h-[85vh] rounded-lg overflow-hidden bg-black/40">
+              <Image
+                src={selectedImage}
+                alt="Selected screenshot detail"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      <Footer />
+    </>
+  );
+};
+
+export default ProjectDetailPage;

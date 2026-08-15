@@ -50,7 +50,7 @@ const Page = () => {
                 variants={childrenVariants}
                 key={project.name}
                 className="p-4 border-[1px] cursor-pointer border-brand-dark/20 rounded-2xl w-full flex flex-col gap-2"
-                onClick={() => router.push(`/projects/${project.name}`)}
+                onClick={() => router.push(`/projects/${project.id}`)}
               >
                 <div className="relative cursor-pointer w-full h-60 overflow-hidden rounded-2xl hover:shadow-xl">
                   <Image
@@ -65,7 +65,7 @@ const Page = () => {
 
                 <button
                   className="group w-fit flex items-center gap-2 bg-brand-dark text-white px-4 py-2 rounded-2xl transition-all duration-300"
-                  onClick={() => router.push(`/projects/${project.name}`)}
+                  onClick={() => router.push(`/projects/${project.id}`)}
                 >
                   View Project
                   <span className="group-hover:pl-4 transition-all duration-300">

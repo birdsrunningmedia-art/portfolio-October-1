@@ -22,6 +22,7 @@ export const skillSet = [
 
 export const projects: project[] = [
     {
+        id: "alone-with-the-gods",
         name: "Alone with the gods",
         description: "A lightweight React pattern that uses TypeScript discriminated unions to safely map polymorphic data types directly to their corresponding card UI components without complex conditional bloat.",
         longDescription: "The complexity of this Dynamic Component Dispatcher lies in balancing dynamic flexibility with strict type safety, transforming heterogeneous data arrays into a predictable, type-safe pipeline without introducing runtime overhead or fragile conditionals. Rather than relying on multi-branch logic or unsafe dynamic imports, it leverages TypeScript’s discriminated unions—using the tag property as a narrowable type guard—to enforce exhaustive compile-time checking across polymorphic components. This decoupled factory structure isolates layout concerns, ensures that each component context receives only its verified schema payload, and creates a highly scalable component architecture where adding new media types or data structures requires zero refactoring of the parent rendering engine.",
@@ -31,6 +32,7 @@ export const projects: project[] = [
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
     {
+        id: "feelframe-studios",
         name: "FeelFrame Studios",
         description: "A modern, visual-first web platform crafted for Feel Frame Studio, featuring fluid media delivery, high-resolution visual showcases, and an immersive user experience tailored for creative storytelling.",
         longDescription: "To match Feel Frame Studio’s refined visual identity, I designed and built a fast, media-focused web platform engineered to showcase high-resolution photography and video without compromising performance. The interface prioritizes clean, minimalist layout structures, allowing the visual assets to take center stage through dynamic gallery displays and smooth, responsive transitions. Built with modern web architecture, the platform handles heavy visual payloads efficiently—incorporating optimized media loading, responsive image handling, and intuitive navigation—creating an elevated digital space that effortlessly converts portfolio traffic into client inquiries.",
@@ -40,6 +42,7 @@ export const projects: project[] = [
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
     {
+        id: "logi-west",
         name: "Logi West",
         description: "A high-performance logistics web platform engineered for Logiwest, featuring real-time consignment tracking, operational service breakdowns, and a streamlined quote-request engine built for freight clients.",
         longDescription: "To modernize Logiwest’s digital presence, I built a fast, enterprise-grade web application tailored to the fast-paced demands of regional supply chain management. The platform features an intuitive interface that simplifies complex freight operations into accessible, user-friendly touchpoints—including an interactive service matrix, regional coverage breakdowns, and direct booking request workflows. Engineered with performance and reliability at its core, the site incorporates optimized data fetching, responsive design for field personnel on mobile devices, and seamless user flows that reduce friction for commercial logistics clients seeking immediate freight estimates and transport updates.",
@@ -49,6 +52,7 @@ export const projects: project[] = [
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
     {
+        id: "image-for-creative-presale",
         name: "Image for creative presale",
         description: "A limited-time presale landing page and onboarding campaign designed for Image for Creatives, offering early-adopter access, lifetime licensing tiers, and priority asset requests for a curated stock photography platform.",
         longDescription: "To build momentum prior to full platform release, I designed and implemented a dedicated presale strategy and landing page for Image for Creatives. The project focused on driving early adoption among designers, developers, and visual storytellers by communicating value through clear tier structures, exclusive lifetime access offers, and interactive preview galleries. Built to deliver high conversion and smooth user onboarding, the presale interface incorporates real-time seat tracking, dynamic price calculation based on early-bird tiers, and optimized media delivery to showcase high-resolution photography without sacrificing page load performance.",
@@ -58,13 +62,13 @@ export const projects: project[] = [
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
     {
+        id: "nfcs-obafemi-awolowo",
         name: "NFCS Obafemi Awolowo",
         description: "A community-driven birthday recognition platform for NFCS Obafemi Awolowo University, built to celebrate student members, streamline birthday tracking, and foster connection across the chapter.",
         longDescription: "Designed for the Nigeria Federation of Catholic Students (NFCS) at Obafemi Awolowo University, Making Years Count is a dedicated digital platform created to elevate how the student community celebrates its members. The platform automates birthday tracking, provides central event visibility, and enables fellow students and executives to send personalized warm wishes and tributes directly to celebrants. Built with an emphasis on seamless user experience and accessibility, the application strengthens fellowship within the organization by ensuring every member feels valued and remembered on their special day.",
         liveLink: "https://nfcs-oau.vercel.app/",
         githubLink: "#",
-        image: ["/nfcs.png",],
+        image: ["/nfcs.png"],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
-]
-
+];
