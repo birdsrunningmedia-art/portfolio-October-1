@@ -25,7 +25,7 @@ export const projects: project[] = [
         name: "Alone with the gods",
         description: "A lightweight React pattern that uses TypeScript discriminated unions to safely map polymorphic data types directly to their corresponding card UI components without complex conditional bloat.",
         longDescription: "The complexity of this Dynamic Component Dispatcher lies in balancing dynamic flexibility with strict type safety, transforming heterogeneous data arrays into a predictable, type-safe pipeline without introducing runtime overhead or fragile conditionals. Rather than relying on multi-branch logic or unsafe dynamic imports, it leverages TypeScript’s discriminated unions—using the tag property as a narrowable type guard—to enforce exhaustive compile-time checking across polymorphic components. This decoupled factory structure isolates layout concerns, ensures that each component context receives only its verified schema payload, and creates a highly scalable component architecture where adding new media types or data structures requires zero refactoring of the parent rendering engine.",
-        liveLink: "https://porfolio-october.vercel.app/",
+        liveLink: "https://alone-with-the-gods-81g1.vercel.app/",
         githubLink: "#",
         image: ["/alone-with-the-gods-1.png", "/alone-with-the-gods-2.png", "/alone-with-the-gods-3.png"],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
@@ -63,7 +63,7 @@ export const projects: project[] = [
         longDescription: "Designed for the Nigeria Federation of Catholic Students (NFCS) at Obafemi Awolowo University, Making Years Count is a dedicated digital platform created to elevate how the student community celebrates its members. The platform automates birthday tracking, provides central event visibility, and enables fellow students and executives to send personalized warm wishes and tributes directly to celebrants. Built with an emphasis on seamless user experience and accessibility, the application strengthens fellowship within the organization by ensuring every member feels valued and remembered on their special day.",
         liveLink: "https://nfcs-oau.vercel.app/",
         githubLink: "#",
-        image: ["/presale-1.png", "/presale-2.png", "/presale-3.png"],
+        image: ["/nfcs.png",],
         technologies: ["Next js", "TypeScript", "Node.js", "Tailwind CSS"],
     },
 ]
